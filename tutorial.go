@@ -76,9 +76,15 @@ func stringFunc() {
 }
 
 // -------- Regexp member functions -------
-func regexpFunc()
-{
-	
+func regexpFunc() {
+	// Returns true if the string matches the pattern
+	var match, error = regexp.MatchString(`foo.*`, "seafood")
+	fmt.Println("The string matches the pattern:", match, "\nThe following errors occured:", error)
+	reg, _ := regexp.Compile("^(The|the).*Spain")
+	// Returns true if the string matches the pattern
+	fmt.Println(reg.MatchString("The rain in Spain, the rain in the USA, and the rain in spain."))
+	// Returns the starting string index of each match
+	fmt.Println(reg.FindStringIndex("The rain in Spain, the rain in the USA, and the rain in spain."))
 }
 
 // ------- Functions -------  
@@ -111,8 +117,15 @@ func add(x int, y int) int {
 }
 
 // Returns tuple implicitly 
-func swap(x int, y int) (int, int) {
+func swap1(x int, y int) (int, int) {
 	return y, x
+}
+
+// Retuns values using pointers 
+func swap2(x* int, y* int) {
+	var temp int = *x
+	*x = *y
+	*y = temp
 }
 
 // Returns value explicitly
@@ -124,6 +137,10 @@ func half(x int, y int) (a, b int) {
 }
 
 // ------ Classes and Structs ------- 
+// ------ Data Structures -------
+// ------ Common Algorithms -------
+// Sorting a list
+
 
 func main() {
 	printFunc()
@@ -136,4 +153,9 @@ func main() {
 	fmt.Println(isCapital('A'))
 	fmt.Println(isCapital('a'))
 	stringFunc() 
+	regexpFunc()
+	xValue := 64
+	yValue := 8
+	swap2(&xValue, &yValue)
+	fmt.Println(xValue, yValue)
 }
