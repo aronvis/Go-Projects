@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"strings"
+	"regexp"
 )
 
 // -------- Variables --------
@@ -32,8 +34,12 @@ var (
 	// ------ Char (byte == uint8) -------
 	firstInitial byte = 'a'
 
+	// ------ Char (runs == ASCII value of char) See below -------
+	isCap = isCapital('A')
+
 	// ------ String ------
-	// rune == int32 (unicode code point)
+	fullName = "Aron Vischjager"
+	
 )
 
 // Special Variable Types
@@ -43,6 +49,38 @@ var p *int = &x
 // Type Casting
 var f = float32(a)
 
+// -------- String member functions -------
+func stringFunc() {
+	// Contains
+	fmt.Println(strings.Contains("test", "es"))
+	// Count
+	fmt.Println(strings.Count("test", "t"))
+	// Index - Returns first instance
+	fmt.Println(strings.Index("tweet", "e"))
+	// Join 
+	fmt.Println(strings.Join([]string{"a", "b"}, ","))
+	// Equal and compare (ignore case)
+	fmt.Println(strings.EqualFold("test", "TEST"))
+	// Length 
+	fmt.Println(len("test"))
+	// Replace - Replaces first n instances 
+	fmt.Println(strings.Replace("foo", "o", "0", 1))
+	// Replace all
+	fmt.Println(strings.ReplaceAll("foo", "o", "0"))
+	// Split
+	fmt.Println(strings.Split("a-b-c-d-e", "-"))
+	// ToLower
+	fmt.Println(strings.ToLower("TEST"))
+	// ToUpper
+	fmt.Println(strings.ToUpper("test"))
+}
+
+// -------- Regexp member functions -------
+func regexpFunc()
+{
+	
+}
+
 // ------- Functions -------  
 // Void
 func printFunc() {
@@ -51,6 +89,20 @@ func printFunc() {
 	fmt.Println(f)
 	e := true 
 	fmt.Println(e)
+}
+
+
+// Bool
+// Used to deal with ASCII/Unicode values (ASCII could also be represented using bytes)
+// Rune range: 0 - 2^32 -1 
+// Byte range: 0 - 255
+func isCapital(r rune) bool {
+    switch {
+    case 65 <= r && r <= 90:
+        return true
+    default:
+        return false
+    }
 }
 
 // Returns int
@@ -71,9 +123,7 @@ func half(x int, y int) (a, b int) {
 	return 
 }
 
-
-// Classes
-
+// ------ Classes and Structs ------- 
 
 func main() {
 	printFunc()
@@ -83,8 +133,7 @@ func main() {
 	var smallNumb int = 1 
 	largeNumb, smallNumb = half(largeNumb, smallNumb)
 	fmt.Println(largeNumb, smallNumb)
-
-
-
-
+	fmt.Println(isCapital('A'))
+	fmt.Println(isCapital('a'))
+	stringFunc() 
 }
