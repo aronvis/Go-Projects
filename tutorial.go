@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"strings"
 	"regexp"
+	// Rand cannot be accesed through "math" using math.rand
+	"math/rand"
+	"time"
 )
 
 // -------- Variables --------
-// Variable Declaration
+// Variable Declaration (stores zero value of typeName by default)
 var i int
 
 // Variable Initialization
@@ -46,7 +49,7 @@ var (
 const Pi = 3.14
 var p *int = &x
 
-// Type Casting
+// Type Casting (explicit only)
 var f = float32(a)
 
 // -------- String member functions -------
@@ -116,7 +119,7 @@ func add(x int, y int) int {
 	return x + y
 }
 
-// Returns tuple implicitly 
+// Returns tuple explicitly
 func swap1(x int, y int) (int, int) {
 	return y, x
 }
@@ -128,12 +131,81 @@ func swap2(x* int, y* int) {
 	*y = temp
 }
 
-// Returns value explicitly
+// Returns tuple implicitly (Should only be used in short functions)
 func half(x int, y int) (a, b int) {
 	sum := x + y
 	a = sum/2
 	b = sum/2
 	return 
+}
+
+// ------ Control Flow -------
+// For loop
+func forLoop() {
+	for i := 0; i<10; i++ {
+		fmt.Println(i)
+	}
+}
+
+// While loop
+func whileLoop() {
+	sum := 1
+	for sum < 1000 {
+		sum += sum
+	}
+	fmt.Println(sum)
+}
+
+// Infinite Loop
+func infLoop() {
+	i := 0
+	for {
+		i += 1
+		if i == 10 {
+			break
+		}
+	}
+	fmt.Println(i)
+}
+
+// If/else Statement
+func ifElse() {
+	// Remove deterministicness of rand functions
+	rand.Seed(time.Now().UnixNano());
+	// Optional: Declare 1 var on same line as if statement
+	if value := rand.Intn(10);  value % 2 == 0 {
+		fmt.Println(value, "Is an even value")
+	} else {
+		fmt.Println(value, "Is an odd value")
+	}
+
+}
+
+// Switch Statement (Terminates when a case succeeds)
+func switchStatement() {
+	today := time.Now().Weekday()
+	switch time.Saturday {
+	case today + 0:
+		fmt.Println("Today.")
+	case today + 1:
+		fmt.Println("Tomorrow.")
+	case today + 2:
+		fmt.Println("In two days.")
+	default:
+		fmt.Println("Too far away.")
+	}
+}
+
+// Defer Statement
+// Statement that won't get executed until the return section of the function is reached
+// When multiple defer statements are used, they are ordered using a stack (reserve execution)
+func deferStatement() {
+	fmt.Println("counting")
+	for i := 0; i < 10; i++ {
+		defer fmt.Println(i)
+	}
+	fmt.Println("done")
+
 }
 
 // ------ Classes and Structs ------- 
@@ -158,4 +230,10 @@ func main() {
 	yValue := 8
 	swap2(&xValue, &yValue)
 	fmt.Println(xValue, yValue)
+	forLoop()
+	whileLoop()
+	infLoop()
+	ifElse()
+	switchStatement()
+	deferStatement()
 }
