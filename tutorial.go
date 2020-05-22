@@ -208,8 +208,59 @@ func deferStatement() {
 
 }
 
-// ------ Classes and Structs ------- 
-// ------ Data Structures -------
+// ------ Advanced Data Types/Stuctures ------ 
+// Structs 
+// Contains:
+// 1) Constructor by default that takes required parameters or uses 0 otherwise (Init 1 - 4)
+// 2) Copy constructor (Init 5)
+
+type Vector struct {
+	x int
+	y int
+}
+
+// Non-default constructor 
+func (v *Vector) Init(x int, y int) {
+    v.x = x
+    v.y = y
+}
+
+func structInit() {
+	// Init 1: 0,0 by default
+	// Vector{} == Vector
+	v := Vector{}
+	fmt.Println(v.x, v.y)
+
+	// Init 2: 1,2 
+	w := Vector{1, 2}
+	fmt.Println(w.x, w.y)
+
+	// Init 3: default, 1
+	z := Vector{y: 1}
+	fmt.Println(z.x, z.y)
+
+	// Init 4: vector pointer with 1,2
+	p := &Vector{1,2}
+	q := &p
+	o := new(Vector)
+	// o == p where o.x, o.y = 0,0
+	// Note: {} not possible
+	fmt.Println((*p).x, (*p).y)
+	fmt.Println((*q).x, (*q).y)
+	fmt.Println((*o).x, (*o).y)
+
+	// Init 5: Copy Constructor 
+	m := z
+	fmt.Println(m.x, m.y)
+	// Comparing two structs by comparing values of fields
+	fmt.Println(m == z)
+}
+
+// Arrays
+
+// Slices (Vectors)
+// Maps
+// Function Values (Function Pointers)
 // ------ Common Algorithms -------
 // Sorting a list
 
@@ -236,4 +287,5 @@ func main() {
 	ifElse()
 	switchStatement()
 	deferStatement()
+	structInit()
 }
